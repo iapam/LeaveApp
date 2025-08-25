@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Employee Information</title>
+    <meta name="viewport" content="width=device-width,
+      initial-scale=1.0"/>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body{
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            
+        }
+
+        .container{
+            width: 100%;
+            max-width: 650px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 28px;
+            margin: 10px 28px;
+            border-radius: 10px;
+            box-shadow: inset -2px 2px 2px white;
+        }
+
+        .form-title{
+            font-size: 26px;
+            font-weight: 600;
+            text-align: center;
+            padding-bottom: 6px;
+            color: white;
+            text-shadow: 2px 2px 2px black;
+            border-bottom: solid 1px white;
+        }
+
+        .main-user-info{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+
+        .user-input-box:nth-child(2n){
+            justify-content: end;
+        }
+
+        .user-input-box{
+            display: flex;
+            flex-wrap: wrap;
+            width: 50%;
+            padding-bottom: 15px;
+        }
+
+        .user-input-box label{
+            width: 95%;
+            color: white;
+            font-size: 20px;
+            font-weight: 400;
+            margin: 5px 0;
+        }
+
+        .user-input-box input{
+            height: 40px;
+            width: 95%;
+            border-radius: 7px;
+            outline: none;
+            border: 1px solid grey;
+            padding: 0 10px;
+        }
+
+        .gender-title{
+            color:white;
+            font-size: 24px;
+            font-weight: 600;
+            border-bottom: 1px solid white;
+        }
+
+        .gender-category{
+            margin: 15px 0;
+            color: white;
+        }
+
+        .gender-category label{
+            padding: 0 20px 0 5px;
+        }
+
+        .gender-category label,
+        .gender-category input,
+        .form-submit-btn input{
+            cursor: pointer;
+        }
+
+        .form-submit-btn{
+            margin-top: 40px;
+        }
+
+        .form-submit-btn input{
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 20px;
+            padding: 10px;
+            border:none;
+            border-radius: 3px;
+            color: rgb(209, 209, 209);
+            background: rgba(63, 114, 76, 0.7);
+        }
+
+        .form-submit-btn input:hover{
+            background: rgba(56, 204, 93, 0.7);
+            color: rgb(255, 255, 255);
+        }
+        a{
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 20px;
+            padding: 10px;
+            border:none;
+            border-radius: 3px;
+            color: rgb(209, 209, 209);
+            background: rgba(63, 114, 76, 0.7);
+            text-align: center;
+            text-decoration: none;
+        }
+        a:hover{
+            background: rgba(56, 204, 93, 0.7);
+            color: rgb(255, 255, 255);
+        }
+
+        @media(max-width: 600px){
+            .container{
+                min-width: 280px;
+            }
+
+            .user-input-box{
+                margin-bottom: 12px;
+                width: 100%;
+            }
+
+            .user-input-box:nth-child(2n){
+                justify-content: space-between;
+            }
+
+            .gender-category{
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .main-user-info{
+                max-height: 380px;
+                overflow: auto;
+            }
+
+            .main-user-info::-webkit-scrollbar{
+                width: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div class="container" style="margin-top: 300px">
+    <h4  style="color: #ce142b"></h4>
+    <h1 class="form-title">Edit Employee Information</h1>
+    <form action="/edit_presidential_votes" method="post">
+        <div class="main-user-info">
+            <div class="user-input-box">
+                <label for="employeeId">Employee Id</label>
+                <input type="text"
+                       id="employeeId"
+                       name="employeeId"
+                       required
+                       th:value="${editEmployeeDetailsDto.getEmployeeId()}"
+                       style="font-size: 15px; color: #777;"
+                />
+            </div>
+            <div class="user-input-box">
+                <label for="name">Employee Name</label>
+                <input type="text"
+                       id="name"
+                       name="name"
+                       th:value="${editEmployeeDetailsDto.getName()}"
+                       style="font-size: 15px; color: #777;"
+                />
+            </div>
+            <div class="user-input-box">
+                <label for="email">Email</label>
+                <input type="text"
+                       id="email"
+                       name="email"
+                       th:value="${editEmployeeDetailsDto.getEmail()}"
+                       style="font-size: 15px; color: #777;"
+                />
+            </div>
+            <div class="user-input-box">
+                <label for="annualSalary">Annual Salary</label>
+                <input type="text"
+                       id="annualSalary"
+                       th:value="${editEmployeeDetailsDto.getAnnualSalary()}"
+                       style="font-size: 15px; color: #777;"
+                       name="annualSalary"/>
+            </div>
+            <div class="user-input-box">
+                <label for="grade">Grade</label>
+                <input type="text"
+                       id="grade"
+                       name="grade"
+                       th:value="${editEmployeeDetailsDto.getGrade()}"
+                       style="font-size: 15px; color: #777;"
+                       />
+            </div>
+           
+            <div class="user-input-box">
+                <label for="address">Address</label>
+                <input type="text"
+                       id="address"
+                       name="address"
+                       th:value="${editEmployeeDetailsDto.getAddress()}"
+                       style="font-size: 15px; color: #777;"
+                />
+            </div>
+            <div class="user-input-box">
+                <label for="profession">Profession</label>
+                <input type="text"
+                       id="profession"
+                       name="profession"
+                       th:value="${editEmployeeDetailsDto.getProfession()}"
+                       style="font-size: 15px; color: #777;"
+                />
+            </div>
+            <div class="user-input-box">
+            <label for="department">Department</label>
+                 <select id="department" name="department" class="form-control" onchange="filterUnits()" style="font-size: 15px; color: #777; height: 40px;
+            width: 95%; border-radius: 7px;outline: none;border: 1px solid grey;padding: 0 10px;">
+                     <option value="" disabled>Select Department</option>
+                     <option th:each="depts : ${departments}"
+                             th:text="${depts.getDepartmentName}"
+                             th:value="${depts.getDepartmentName}"
+                             th:selected="${depts == selectedDepartment}">
+                     </option>
+
+
+                 </select>
+            </div>
+            <div class="user-input-box">
+              <label for="unit">Unit</label>
+                 <select id="unit" name="unit" class="form-control" style="font-size: 15px; color: #777; height: 40px;width: 95%;border-radius: 7px;outline: none;border: 1px solid grey;padding: 0 10px; ">
+                    <option value="" disabled selected>Select Unit</option>
+                </select>
+                       
+            </div>
+
+           <div class="user-input-box">
+                 <label for="employeeRole">Employee Role</label>
+                <select id="employeeRole" name="employeeRole" class="form-control" style="font-size: 15px; color: #777;  height: 40px;width: 95%;
+            border-radius: 7px;outline: none;border: 1px solid grey;padding: 0 10px;">
+                    <option value="" disabled selected>Select Employee Role</option>
+                    <option value="EMPLOYEE">EMPLOYEE</option>
+                    <option value="ADMINISTRATOR">ADMINISTRATOR</option>
+                    <option value="ACCOUNTANT">ACCOUNTANT</option>
+                    <option value="NURSE_MANAGER">NURSE MANAGER</option>
+                    <option value="MEDSUP">MEDSUP</option>
+                    <option value="CLINICAL_COORDINATOR">CLINICAL COORDINATOR</option>
+                    <option value="PHARMACIST">PHARMACIST</option>
+                </select>
+              
+            </div>
+           </div>
+        <div class="form-submit-btn">
+            <input type="submit" value="update">
+        </div>
+        <div class="form-submit-btn">
+            <a href="/dashboard">Back to Dashboard</a>
+        </div>
+    </form>
+</div>
+<script th:inline="javascript">
+    let unitsByDepartment = /*[[${unitsByDepartment}]]*/ {};
+   // let professionsByDepartment = /*[[${professionsByDepartment}]]*/ {};
+   // let employeeRoleByDepartment = /*[[${employeeRoleByDepartment}]]*/ {};
+
+    let selectedUnit = /*[['${pollingstation.unit}']]*/ '';
+    //let selectedProfession = /*[['${pollingstation.profession}']]*/ '';
+  // let selectedRole = /*[['${pollingstation.employeeRole}']]*/ '';
+</script>
+ <script type="text/javascript">
+    function enableBrand(answer){
+        const employmentType = document.getElementById('employmentType').value;
+        const employeeIdInput = document.getElementById('Perminent');
+    if(employmentType==='Perminent'){
+      console.log(answer.value);
+      employeeIdInput.classList.remove('form-controls');
+    }else{
+      employeeIdInput.classList.add('form-controls');
+    }
+    }
+    function filterUnits() {
+        const department = document.getElementById('department').value;
+        const unitSelect = document.getElementById('unit');
+       // const professionSelect = document.getElementById('profession');
+        //const employeeRoleSelect = document.getElementById('employeeRole');
+
+        // Clear previous options
+        unitSelect.innerHTML = '<option value="" disabled selected>Select Unit</option>';
+       // professionSelect.innerHTML = '<option value="" disabled selected>Select Profession</option>';
+       // employeeRoleSelect.innerHTML = '<option value="" disabled selected>Select Employee Role</option>';
+
+
+        // Define unit options based on department
+        // const unitsByDepartment = {
+        //     Administration: ['IT','General Office','Cleaners','Labour'],
+        //     Nursing: ['Males Ward', 'Females Ward','Kids Ward'],
+        //     'Medical Officers': ['General Practice', 'Physician Assistant'], // Optional addition
+        //    Pharmacy: ['Pharmacy']
+        // };
+        // const professionsByDepartment = {
+        //     Administration: ['IT Manager', 'Administrator'],
+        //     Nursing: ['General Nurse', 'Midwife'],
+        //     'Medical Officers': ['Medical Officer', 'Surgeon'],
+        //      Pharmacy: ['Pharmacist']
+        //
+        // };
+        // const employeeRoleByDepartment = {
+        //     Administration: ['EMPLOYEE', 'ADMINISTRATOR','ACCOUNTANT'],
+        //     Nursing: ['EMPLOYEE', 'NURSE_MANAGER'],
+        //     'Medical Officers': ['EMPLOYEE', 'MEDSUP','CLINICAL_COORDINATOR'],
+        //     Pharmacy: ['PHARMACIST']
+        //
+        // };
+
+
+
+if (unitsByDepartment[department]) {
+            unitsByDepartment[department].forEach(unit => {
+                const option = document.createElement('option');
+                option.value = unit;
+                option.text = unit;
+                if (unit === selectedUnit) option.selected = true;
+                unitSelect.appendChild(option);
+            });
+        }
+         
+        // if (professionsByDepartment[department]) {
+        //     professionsByDepartment[department].forEach(profession => {
+        //         const option = document.createElement('option');
+        //         option.value = profession;
+        //         option.text = profession;
+        //         if (profession === selectedProfession) option.selected = true;
+        //         professionSelect.appendChild(option);
+        //     });
+        // }
+        // if (employeeRoleByDepartment[department]) {
+        //     employeeRoleByDepartment[department].forEach(employeeRole => {
+        //         const option = document.createElement('option');
+        //         option.value = employeeRole;
+        //         option.text = employeeRole;
+        //         employeeRoleSelect.appendChild(option);
+        //     });
+        // }
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+        const department = document.getElementById('department').value;
+        if (department) {
+            filterUnits();
+        }
+    });
+
+    </script>
+</body>
+</html>

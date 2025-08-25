@@ -512,4 +512,41 @@ public List<EmployeesOnLeaveDto> employeesOnLeaveDetails(){
     }
     return employeesOnLeaveDtos;
 }
+public EditEmployeeDetailsDto getEmployeeDetails(String employeeId){
+Login login=loginRepository.findByEmployeeId(employeeId);
+EmployeeDetail employeeDetail=employeeDetailsRepository.findEmployeeDetailsByLogin(login);
+Departments departments=departmentsRepository.findByDepartmentId(employeeDetail.getDepartments().getDepartmentId());
+Unit unit=unitsRepository.findByUnitId(employeeDetail.getUnitId().getUnitId());
+EditEmployeeDetailsDto editEmployeeDetailsDto=new EditEmployeeDetailsDto();
+editEmployeeDetailsDto.setEmployeeId(employeeDetail.getLogin().getEmployeeId());
+editEmployeeDetailsDto.setName(employeeDetail.getName());
+editEmployeeDetailsDto.setUnit(unit.getUnitName());
+editEmployeeDetailsDto.setDepartments(departments.getDepartmentName());
+editEmployeeDetailsDto.setAddress(employeeDetail.getAddress());
+editEmployeeDetailsDto.setEmail(employeeDetail.getEmail());
+editEmployeeDetailsDto.setNumberOfDaysEntitled(employeeDetail.getNumberOfDaysEntitled());
+editEmployeeDetailsDto.setGrade(employeeDetail.getGrade());
+editEmployeeDetailsDto.setProfession(employeeDetail.getProfession());
+editEmployeeDetailsDto.setEmployeeRole(login.getEmployeeRole());
+    System.out.println(editEmployeeDetailsDto);
+return editEmployeeDetailsDto;
+}
+public Map<String,List<Unit>> getUnitAndDepartments(){
+    Map<String,List<Unit>> departmentsAndUnit=new HashMap<>();
+       try {
+           List<Departments> departments=departmentsRepository.findAll();
+
+           for(Departments department:departments){
+              List<Unit>allUnits=unitsRepository.findAllByDepartments(department);
+              departmentsAndUnit.put(department.getDepartmentName(),allUnits);
+           }
+
+       }catch (Exception e){
+           System.out.println(e.getMessage());
+       }
+    return departmentsAndUnit;
+}
+public List <Departments> getAllDepartments(){
+        return departmentsRepository.findAll();
+}
 }

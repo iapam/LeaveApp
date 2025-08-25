@@ -7,5 +7,6 @@ public enum EmployeeRole {
     HR,
     MEDSUP,
     CLINICAL_COORDINATOR,
-    ACCOUNTANT
+    ACCOUNTANT,
+    PHARMACIST
 }

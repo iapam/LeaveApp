@@ -1,8 +1,7 @@
 package com.ibm.hr_pj.Controllers;
 
 import com.ibm.hr_pj.Dto.*;
-import com.ibm.hr_pj.Models.EmployeeDetail;
-import com.ibm.hr_pj.Models.Login;
+import com.ibm.hr_pj.Models.*;
 import com.ibm.hr_pj.Repositories.EmployeeDetailsRepository;
 import com.ibm.hr_pj.Services.EmployeeService;
 import com.ibm.hr_pj.Services.PdfGeneratorService;
@@ -16,7 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -135,4 +135,29 @@ public String employeesOnLeaveDetails(Model model){
         model.addAttribute("employeesOnLeave",employeesOnLeave);
         return "/EmployeesOnLeaveDetailsTable";
 }
+@GetMapping("/hr/employees/editPage")
+public String editPage(Model model,@RequestParam("employeeID") String employeeID){
+    EditEmployeeDetailsDto editEmployeeDetailsDto=employeeService.getEmployeeDetails(employeeID);
+    Map<String, List<String>> unitsByDepartment = new  HashMap<>();
+    Map<String,List<Unit>> departmentsAndUnit=employeeService.getUnitAndDepartments();
+    for(Map.Entry<String,List<Unit>> entry:departmentsAndUnit.entrySet()){
+        for(Unit unit:entry.getValue()){
+            unitsByDepartment.put(entry.getKey(),List.of(unit.getUnitName()));
+        }
+    }
+    model.addAttribute("unitsByDepartment",unitsByDepartment);
+    employeeService.getEmployeeDetails("hr");
+
+// Repeat for professionsByDepartment and employeeRoleByDepartment if needed
+    List<Departments>departments=employeeService.getAllDepartments();
+    model.addAttribute("departments", departments);
+    model.addAttribute("selectedDepartment", editEmployeeDetailsDto.getDepartments()); // for selected option
+    model.addAttribute("editEmployeeDetailsDto",editEmployeeDetailsDto);
+    return "/EditPage";
+}
+@GetMapping("/hr/employees/searchPage")
+public String searchPage(){
+        return "/searchPage";
+}
+
 }
